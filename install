@@ -1,0 +1,1 @@
+gcc testReciver.c -o testReciver  -std=c99  -ldbus-1
