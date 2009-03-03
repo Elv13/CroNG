@@ -1,1 +1,1 @@
-gcc testReciver.c -o testReciver  -std=c99  -ldbus-1
+gcc main.c -o crong  -std=c99  -ldbus-1

@@ -241,7 +241,7 @@ int execCommand(JobInfo* jobInfo, DBusConnection* conn) {
 
 
 int main() {
-  char testStr[] = "* * * * * ls -l / --color";
+  char testStr[] = "* * * * * ls -l /";
   char tmp[3];
   unsigned int length = strlen(testStr);
   int index =0, tmpI =0;
@@ -320,6 +320,7 @@ int main() {
   time ( &rawtime );
   timeinfo = localtime ( &rawtime );
   jobInfo.timeInfo.tm_year = timeinfo->tm_year;
+  bool addMonth = false;
 //   
   if (jobInfo.timeInfo.tm_hour == -1) {
     if ((timeinfo->tm_min < jobInfo.timeInfo.tm_min) || (jobInfo.timeInfo.tm_min == -1)) {
@@ -345,6 +346,7 @@ int main() {
       }
       else {
 	jobInfo.timeInfo.tm_min = 0;
+	jobInfo.timeInfo.tm_hour++;
       }
     }
   }
@@ -360,6 +362,7 @@ int main() {
       }
       else {
 	jobInfo.timeInfo.tm_mday = 1;
+	addMonth = true;
       }
     }
   }
@@ -372,10 +375,10 @@ int main() {
     }
     else {
       if (timeinfo->tm_mon != 11) {
-	jobInfo.timeInfo.tm_mon =timeinfo->tm_mon +1;
+	jobInfo.timeInfo.tm_mon =timeinfo->tm_mon +1 + addMonth;
       }
       else {
-	jobInfo.timeInfo.tm_mon = 0;
+	jobInfo.timeInfo.tm_mon = 0 + addMonth;
       }
     }
   }
